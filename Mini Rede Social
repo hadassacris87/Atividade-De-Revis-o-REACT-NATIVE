@@ -1,0 +1,93 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  Button
+} from "react-native";
+
+export default function App(){
+
+  const [posts, setPosts] = useState([
+    {
+      id:"1",
+      usuario:"Hadassa",
+      texto:"Meu primeiro post",
+      curtidas:0
+    },
+    {
+      id:"2",
+      usuario:"João",
+      texto:"Olá pessoal",
+      curtidas:2
+    }
+  ]);
+
+  function curtir(id){
+
+    setPosts(
+      posts.map(item =>
+        item.id === id
+        ? {
+            ...item,
+            curtidas:item.curtidas + 1
+          }
+        : item
+      )
+    );
+  }
+
+  function descurtir(id){
+
+    setPosts(
+      posts.map(item =>
+        item.id === id
+        ? {
+            ...item,
+            curtidas:item.curtidas - 1
+          }
+        : item
+      )
+    );
+  }
+
+  return(
+
+    <FlatList
+      data={posts}
+      keyExtractor={(item)=>item.id}
+      renderItem={({item}) => (
+
+        <View
+          style={{
+            padding:15,
+            margin:10,
+            backgroundColor:"#ddd"
+          }}
+        >
+
+          <Text>{item.usuario}</Text>
+
+          <Text>{item.texto}</Text>
+
+          <Text>
+            Curtidas: {item.curtidas}
+          </Text>
+
+          <Button
+            title="Curtir"
+            onPress={() => curtir(item.id)}
+          />
+
+          <Button
+            title="Descurtir"
+            onPress={() => descurtir(item.id)}
+          />
+
+        </View>
+
+      )}
+    />
+
+  );
+}
