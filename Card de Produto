@@ -1,0 +1,71 @@
+import React from "react";
+import { View, Text } from "react-native";
+
+function ProductCard(props){
+
+  return(
+
+    <View
+      style={{
+        borderWidth:1,
+        padding:10,
+        margin:10,
+        opacity: props.inStock ? 1 : 0.5
+      }}
+    >
+
+      <Text>{props.title}</Text>
+
+      <Text>R$ {props.price}</Text>
+
+      <Text>{props.description}</Text>
+
+      <Text>
+        {props.inStock
+          ? "Disponível"
+          : "Indisponível"}
+      </Text>
+
+    </View>
+
+  );
+}
+
+export default function App(){
+
+  return(
+
+    <View>
+
+      <ProductCard
+        title="Mouse"
+        price={50}
+        description="Mouse Gamer"
+        inStock={true}
+      />
+
+      <ProductCard
+        title="Teclado"
+        price={100}
+        description="Teclado RGB"
+        inStock={false}
+      />
+
+      <ProductCard
+        title="Monitor"
+        price={800}
+        description="Full HD"
+        inStock={true}
+      />
+
+      <ProductCard
+        title="Headset"
+        price={200}
+        description="Headset Gamer"
+        inStock={false}
+      />
+
+    </View>
+
+  );
+}
