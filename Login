@@ -1,0 +1,65 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button
+} from "react-native";
+
+export default function App(){
+
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
+
+  function entrar(){
+
+    if(email === "" || senha === ""){
+      setMensagem("Preencha todos os campos");
+      return;
+    }
+
+    if(senha.length < 6){
+      setMensagem("Senha muito curta");
+      return;
+    }
+
+    setMensagem("Login realizado");
+  }
+
+  return(
+
+    <View style={{padding:20}}>
+
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        style={{
+          borderWidth:1,
+          marginBottom:10
+        }}
+      />
+
+      <TextInput
+        placeholder="Senha"
+        secureTextEntry
+        value={senha}
+        onChangeText={setSenha}
+        style={{
+          borderWidth:1,
+          marginBottom:10
+        }}
+      />
+
+      <Button
+        title="Entrar"
+        onPress={entrar}
+      />
+
+      <Text>{mensagem}</Text>
+
+    </View>
+
+  );
+}
