@@ -1,0 +1,41 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput
+} from "react-native";
+
+export default function App(){
+
+  const [celsius, setCelsius] = useState("");
+
+  const numero = parseFloat(celsius);
+
+  const fahrenheit =
+    !isNaN(numero)
+    ? (numero * 1.8 + 32).toFixed(2)
+    : "";
+
+  return(
+
+    <View style={{padding:20}}>
+
+      <TextInput
+        placeholder="Digite em Celsius"
+        keyboardType="numeric"
+        value={celsius}
+        onChangeText={setCelsius}
+        style={{
+          borderWidth:1,
+          marginBottom:20
+        }}
+      />
+
+      <Text>
+        Fahrenheit: {fahrenheit}
+      </Text>
+
+    </View>
+
+  );
+}
