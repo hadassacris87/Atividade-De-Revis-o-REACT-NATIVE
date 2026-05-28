@@ -1,0 +1,99 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  FlatList
+} from "react-native";
+
+export default function App(){
+
+  const [nome, setNome] = useState("");
+  const [nota, setNota] = useState("");
+  const [alunos, setAlunos] = useState([]);
+
+  function adicionar(){
+
+    const novo = {
+      id: Date.now().toString(),
+      nome,
+      nota: Number(nota)
+    };
+
+    setAlunos([...alunos, novo]);
+
+    setNome("");
+    setNota("");
+  }
+
+  const notas = alunos.map(item => item.nota);
+
+  const media =
+    notas.length > 0
+    ? (
+        notas.reduce((a,b)=>a+b,0)
+        / notas.length
+      ).toFixed(2)
+    : 0;
+
+  const maior =
+    notas.length > 0
+    ? Math.max(...notas)
+    : 0;
+
+  const menor =
+    notas.length > 0
+    ? Math.min(...notas)
+    : 0;
+
+  return(
+
+    <View style={{padding:20}}>
+
+      <TextInput
+        placeholder="Nome"
+        value={nome}
+        onChangeText={setNome}
+        style={{
+          borderWidth:1,
+          marginBottom:10
+        }}
+      />
+
+      <TextInput
+        placeholder="Nota"
+        keyboardType="numeric"
+        value={nota}
+        onChangeText={setNota}
+        style={{
+          borderWidth:1,
+          marginBottom:10
+        }}
+      />
+
+      <Button
+        title="Adicionar"
+        onPress={adicionar}
+      />
+
+      <FlatList
+        data={alunos}
+        keyExtractor={(item)=>item.id}
+        renderItem={({item}) => (
+          <Text>
+            {item.nome} - {item.nota}
+          </Text>
+        )}
+      />
+
+      <Text>Média: {media}</Text>
+
+      <Text>Maior Nota: {maior}</Text>
+
+      <Text>Menor Nota: {menor}</Text>
+
+    </View>
+
+  );
+}
