@@ -1,0 +1,26 @@
+import React, { useState } from "react";
+import { View, Text, Button } from "react-native";
+
+export default function App() {
+
+  const [mostrar, setMostrar] = useState(false);
+
+  return (
+    <View style={{marginTop:50, padding:20}}>
+
+      <Button
+        title="Mostrar Perfil"
+        onPress={() => setMostrar(!mostrar)}
+      />
+
+      {mostrar && (
+        <View>
+          <Text>Nome: Hadassa</Text>
+          <Text>Idade: 16</Text>
+          <Text>Curso: Desenvolvimento</Text>
+        </View>
+      )}
+
+    </View>
+  );
+}
