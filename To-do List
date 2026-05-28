@@ -1,0 +1,102 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button
+} from "react-native";
+
+export default function App(){
+
+  const [texto, setTexto] = useState("");
+  const [tarefas, setTarefas] = useState([]);
+
+  function adicionar(){
+
+    const nova = {
+      id: Date.now().toString(),
+      texto,
+      concluida:false
+    };
+
+    setTarefas([...tarefas, nova]);
+
+    setTexto("");
+  }
+
+  function concluir(id){
+
+    setTarefas(
+      tarefas.map(item =>
+        item.id === id
+        ? {
+            ...item,
+            concluida: !item.concluida
+          }
+        : item
+      )
+    );
+  }
+
+  function remover(id){
+
+    setTarefas(
+      tarefas.filter(item => item.id !== id)
+    );
+  }
+
+  const total =
+    tarefas.filter(item => item.concluida).length;
+
+  return(
+
+    <View style={{padding:20}}>
+
+      <TextInput
+        placeholder="Digite a tarefa"
+        value={texto}
+        onChangeText={setTexto}
+        style={{
+          borderWidth:1,
+          marginBottom:10
+        }}
+      />
+
+      <Button
+        title="Adicionar"
+        onPress={adicionar}
+      />
+
+      <Text>
+        Concluídas: {total}
+      </Text>
+
+      {tarefas.map(item => (
+
+        <View key={item.id}>
+
+          <Text
+            onPress={() => concluir(item.id)}
+            style={{
+              textDecorationLine:
+                item.concluida
+                ? "line-through"
+                : "none"
+            }}
+          >
+            {item.texto}
+          </Text>
+
+          <Button
+            title="Remover"
+            onPress={() => remover(item.id)}
+          />
+
+        </View>
+
+      ))}
+
+    </View>
+
+  );
+}
