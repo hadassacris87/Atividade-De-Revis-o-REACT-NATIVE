@@ -1,1 +1,0 @@
-# Atividade-De-Revis-o-REACT-NATIVE
