@@ -1,0 +1,116 @@
+import React, { useState } from "react";
+
+import {
+  View,
+  Text,
+  TextInput,
+  Button
+} from "react-native";
+
+import { NavigationContainer }
+from "@react-navigation/native";
+
+import { createNativeStackNavigator }
+from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
+
+function Cadastro({ navigation }){
+
+  const [nome, setNome] = useState("");
+  const [idade, setIdade] = useState("");
+  const [curso, setCurso] = useState("");
+
+  return(
+
+    <View style={{padding:20}}>
+
+      <TextInput
+        placeholder="Nome"
+        value={nome}
+        onChangeText={setNome}
+        style={{
+          borderWidth:1,
+          marginBottom:10
+        }}
+      />
+
+      <TextInput
+        placeholder="Idade"
+        value={idade}
+        onChangeText={setIdade}
+        style={{
+          borderWidth:1,
+          marginBottom:10
+        }}
+      />
+
+      <TextInput
+        placeholder="Curso"
+        value={curso}
+        onChangeText={setCurso}
+        style={{
+          borderWidth:1,
+          marginBottom:10
+        }}
+      />
+
+      <Button
+        title="Enviar"
+        onPress={() =>
+          navigation.navigate(
+            "Perfil",
+            { nome, idade, curso }
+          )
+        }
+      />
+
+    </View>
+
+  );
+}
+
+function Perfil({ route }){
+
+  const { nome, idade, curso }
+  = route.params;
+
+  return(
+
+    <View style={{padding:20}}>
+
+      <Text>Nome: {nome}</Text>
+
+      <Text>Idade: {idade}</Text>
+
+      <Text>Curso: {curso}</Text>
+
+    </View>
+
+  );
+}
+
+export default function App(){
+
+  return(
+
+    <NavigationContainer>
+
+      <Stack.Navigator>
+
+        <Stack.Screen
+          name="Cadastro"
+          component={Cadastro}
+        />
+
+        <Stack.Screen
+          name="Perfil"
+          component={Perfil}
+        />
+
+      </Stack.Navigator>
+
+    </NavigationContainer>
+
+  );
+}
